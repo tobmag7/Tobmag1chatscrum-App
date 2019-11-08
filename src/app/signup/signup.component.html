@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Sign Up Form</title>
+</head>
+<body>
+	<!--Navbar -->
+	<nav class="mb-1 navbar navbar-expand-lg navbar-dark " style="background-color:darkblue ;">
+		<a class="navbar-brand" href="home">Welcome To  Tobmag1chatscrum</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
+			aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item">
+					<a class="nav-link" href="signup">
+						<i class="fas fa-user-plus"></i> Sign Up
+						<span class="sr-only">(current)</span>
+					</a>
+				</li>
+				<li class="nav-item active">
+					<a class="nav-link" href="login">
+						<i class="fas fa-sign-in-alt"></i> Login</a>
+				</li>
+
+				<li class="nav-item active">
+					<a class="nav-link" href="createproject">
+						<i class="fas fa-tasks"></i> Create Project
+					</a>
+				</li>
+			
+			</ul>
+		</div>
+	</nav>
+	<div class="container">
+		<!-- <span>{{ feedback }}</span> -->
+		<span id="alert"></span>
+		
+		<div class="card bg-light">
+		<article class="card-body mx-auto" style="max-width: 400px;">
+			<h4 class="card-title mt-3 text-center"> <b> Create A New Account </b></h4>
+			<!-- <p class="text-center">Get started with your free account</p> -->
+
+			<form #userSignUpForm = "ngForm" name="userSignUpForm" novalidate (ngSubmit)="onSubmit()">
+				<!-- <p>{{userSignUpForm.value | json}}</p> -->
+			<div class="form-group input-group">
+				<div class="input-group-prepend ">
+				    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+				 </div>
+		        <input type="text" required #fullname="ngModel" required [class.is-invalid]="fullname.touched && fullname.invalid" [(ngModel)] = "scrumUserModel.fullname" name="fullname"  class="form-control" placeholder="Full name">
+		        <div class="invalid-feedback">
+		        	Name is required
+		        </div>
+		    </div>
+		    
+		    <div class="form-group input-group">
+		    	<div class="input-group-prepend">
+				    <span class="input-group-text "> <i class="fa fa-envelope"></i> </span>
+				 </div>
+		        <input type="email" required #email="ngModel" [class.is-invalid]=" email.touched && email.invalid" [(ngModel)] = "scrumUserModel.email" name="email" pattern="[A-Za-z0-9._-]+@[A-Za-z0-9]+\.[a-z]{2,}$" class="form-control" placeholder="Email address">
+		        <div class="invalid-feedback" *ngIf="email.errors && (email.invalid || email.touched)">
+				        <span *ngIf="email.errors.required" >Email is requred</span>
+				        <span class="text-danger"  *ngIf="email.errors.pattern">Please enter a valid email address
+				        </span>
+		        	</div>
+		    </div> <!-- form-group// -->
+
+		    
+		    <div class="form-group input-group">
+		    	<div class="input-group-prepend">
+				    <span class="input-group-text"> <i class="fa fa-building"></i> </span>
+				</div>
+				<select #type="ngModel" required [class.is-invalid]="type.invalid && type.touched" [(ngModel)] = "scrumUserModel.type" class="form-control" name="type">
+					<option > Select User type</option>
+					<option *ngFor = "let eachElement of userTypes">{{eachElement}}</option>
+				</select>
+				<div class="invalid-feedback">
+		        	Please select User Type
+		        </div>
+				</div> <!-- form-group end.// -->
+			    <div class="form-group input-group">
+			    	<div class="input-group-prepend">
+					    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+					</div>
+			        <input type="password" required #password="ngModel" [class.is-invalid]="password.invalid && password.touched" pattern="^(?=.*[!@#$%^&*?/-]).{7,16}$" [(ngModel)] = "scrumUserModel.password"  name="password" class="form-control" placeholder="Create password" >
+			        <div class="invalid-feedback" *ngIf="password.errors && (password.invalid || password.touched)">
+				        <span *ngIf="password.errors.required" >password is requred</span>
+				        <span class="text-danger"  *ngIf="password.errors.pattern">password must be 8-15 long with special characters 
+				        </span>
+		        	</div>
+			    </div> <!-- form-group// -->
+			    <div class="form-group input-group">
+			    	<div class="input-group-prepend">
+					    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+					</div>
+			        <input type="password" required #confirmPassword="ngModel" [class.is-invalid]="confirmPassword.value !== password.value && confirmPassword.touched" ngModel name="confirmPassword" class="form-control" placeholder="Enter Password Again" >
+			        <div class="invalid-feedback">
+				        Passwords do not match
+				       
+		        	</div>
+			    </div>                                      
+			    <div class="form-group">
+			        <button type="submit" class="btn btn-primary btn-block"> Create Account  </button>
+				</div> <!-- form-group// -->
+				<span class="text-center">By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</span><hr>      
+				<p class="text-center">Have an account? <a href="/login">Click To Log In</a> </p>
+            	                                                                
+			</form>
+	</article>
+	</div>
+</div>
+</body>
+</html>
