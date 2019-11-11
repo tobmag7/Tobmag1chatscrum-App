@@ -10,7 +10,7 @@
 <body>
 	<!--Navbar -->
 	<nav class="mb-1 navbar navbar-expand-lg navbar-dark" style="background-color:darkblue ;">
-		<a class="navbar-brand" href="home">Tobmag1chatscrum</a>
+		<a class="navbar-brand" href="home">Rose Chatscrum</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
 			aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
@@ -28,7 +28,7 @@
 						<i class="fas fa-user"></i> <strong> {{loggedUser.name}},</strong> {{loggedUser.role}} </a>
 					<div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
 						<a class="dropdown-item" href="/changerole/{{project_id}}" id="admin">Change User Role</a>
-						<a class="dropdown-item" href="logout">Click To Log out</a>
+						<a class="dropdown-item" href="logout">Log out</a>
 					</div>
 				</li>
 			</ul>
@@ -38,14 +38,12 @@
 	
 		<!-- <table *ngFor="let participant of pparticipants" class="table">
 			<p><strong>{{ participant['user']['nickname'] }}</strong></p>
-
 			<tr>
 				<th scope="col">Tasks For The Week</th>
 				<th scope="col">Tasks For The Day</th>
 				<th scope="col">Verify</th>
 				<th scope="col">Done</th>
 			</tr>
-
 			<tr>
 				<td>
 					<div *ngFor="let goal of participant['scrumgoal_set']">
@@ -56,7 +54,6 @@
 						</div>
 					</div>
 				</td>
-
 				<td>
 					<div *ngFor="let goal of participant['scrumgoal_set']">
 						<div *ngIf="goal['status'] == 1 && goal['user'] == participant['id']">
@@ -66,7 +63,6 @@
 						</div>
 					</div>
 				</td>
-
 				<td>
 					<div *ngFor="let goal of participant['scrumgoal_set']">
 						<div *ngIf="goal['status'] == 2 && goal['user'] == participant['id']">
@@ -76,7 +72,6 @@
 						</div>
 					</div>
 				</td>
-
 				<td>
 					<div *ngFor="let goal of participant['scrumgoal_set']">
 						<div *ngIf="goal['status'] == 3 && goal['user'] == participant['id']">
@@ -88,6 +83,10 @@
 				</td>
 			</tr>
 		</table>-->
+	<div class="form">
+			<h5><strong> {{loggedUser.name}} || <div class="role">{{loggedUser.role}}</div></strong></h5>  
+
+	</div>
 
 	<div class="table mt-3">
 		<div class="d-flex mb-3">
@@ -97,10 +96,11 @@
 				</strong>
 				<div cdkDropList #tftwList="cdkDropList" [cdkDropListData]="TFTW"
 					[cdkDropListConnectedTo]="[tftdList, verifyList, doneList]" class="example-list"
-					(cdkDropListDropped)="drop($event)" [cdkDropListEnterPredicate]="evenPredicate0">
-					<div class="example-box" *ngFor="let item of TFTW" cdkDrag [cdkDragData]="item">
+					(cdkDropListDropped)="drop($event)" class="ex" [cdkDropListEnterPredicate]="evenPredicate0">
+					<div class="example-box" *ngFor="let item of TFTW" cdkDrag [cdkDragData]="item" class="pd">
 						{{item[2]}}<br>
-						{{item[4]}}<br><br>
+						{{item[4]}}<br>
+						<strong>Status: </strong>{{item[3]}}<br>
 					</div>
 				</div>
 			</div>
@@ -111,45 +111,48 @@
 				</strong>
 				<div cdkDropList #tftdList="cdkDropList" [cdkDropListData]="TFTD"
 					[cdkDropListConnectedTo]="[tftwList, verifyList, doneList]" class="example-list"
-					(cdkDropListDropped)="drop($event)" [cdkDropListEnterPredicate]="evenPredicate">
-					<div class="example-box" *ngFor="let item of TFTD" cdkDrag [cdkDragData]="item">
+					(cdkDropListDropped)="drop($event)" class="ex" [cdkDropListEnterPredicate]="evenPredicate">
+					<div class="example-box" *ngFor="let item of TFTD" cdkDrag [cdkDragData]="item" class="pd">
 						{{item[2]}}<br>
-						{{item[4]}}<br><br>
+						{{item[4]}}<br>
+						<strong>Status: </strong>{{item[3]}}<br>
 					</div>
 				</div>
 			</div>
 		
 			<div class="p-2 w-100">
 				<strong>
-					<h4>Verified Tasks</h4>
+					<h4>Verify</h4>
 				</strong>
 				<div cdkDropList #verifyList="cdkDropList" [cdkDropListData]="verify"
 					[cdkDropListConnectedTo]="[tftwList, tftdList, doneList]" class="example-list"
-					(cdkDropListDropped)="drop($event)" [cdkDropListEnterPredicate]="evenPredicate1">
-					<div class="example-box" *ngFor="let item of verify" cdkDrag [cdkDragData]="item">
+					(cdkDropListDropped)="drop($event)" class="ex" [cdkDropListEnterPredicate]="evenPredicate1">
+					<div class="example-box" *ngFor="let item of verify" cdkDrag [cdkDragData]="item" class="pd">
 						{{item[2]}}<br>
-						{{item[4]}}<br><br>
+						{{item[4]}}<br>
+						<strong>Status: </strong>{{item[3]}}<br>
 					</div>
 				</div>
 			</div>
 		
 			<div class="p-2 w-100">
 				<strong>
-					<h4>Done Tasks</h4>
+					<h4>Done</h4>
 				</strong>
 				<div cdkDropList #doneList="cdkDropList" [cdkDropListData]="done"
 					[cdkDropListConnectedTo]="[tftwList, tftdList, verifyList, doneList]" class="example-list"
-					(cdkDropListDropped)="drop($event)" [cdkDropListEnterPredicate]="evenPredicate2">
-					<div class="example-box" *ngFor="let item of done" cdkDrag [cdkDragData]="item">
+					(cdkDropListDropped)="drop($event)" class="ex" [cdkDropListEnterPredicate]="evenPredicate2">
+					<div class="example-box" *ngFor="let item of done" cdkDrag [cdkDragData]="item" class="pd">
 						{{item[2]}}<br>
-						{{item[4]}}<br><br>
+						{{item[4]}}<br>
+						<strong>Status: </strong>{{item[3]}}<br>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
     <div>
-		<button id="myBtn">Open Modal</button>
+		<button id="myBtn">Create Goal | Sprint</button>
 		
 		
 		<div id="myModal" class="modal">
@@ -158,10 +161,10 @@
 			<div class="modal-content">
 				<span class="close" id="close">&times;</span>
 				<h4>Add A Goal</h4>
-				<form #userAddGoalForm = "ngForm" name="userAddGoalForm" novalidate (ngSubmit)="onCreateGoal()">
+				<form #userAddGoalForm = "ngForm" name="userAddGoalForm" novalidate (ngSubmit)="onCreateGoal()" action="/scrumboard/{{project_id}}">
 					<div class="form-group input-group">
 						<input type="text" required #name="ngModel" required [class.is-invalid]="name.touched && name.invalid"
-							[(ngModel)]="createGoalModel.name" name="name" class="form-control" placeholder="Enter Goal">
+							[(ngModel)]="goalData.goalname" name="name" class="form-control" placeholder="Enter Goal">
 						<div class="invalid-feedback">
 							Please Enter A Goal
 						</div><br>
@@ -171,29 +174,25 @@
 						</div>
 					</div>
 				</form>
+				<button type="submit" class="btn btn-light btn-block" *ngIf="loggedUser.role === 'Owner' " (click)="startSprint()">Start Sprint</button>
 			</div>
 		
 		</div>
 	</div>
 	<!-- <script type="text/javascript" lang="javascript">
 		var modal = document.getElementById("myModal");
-
 		// Get the button that opens the modal
 		var btn = document.getElementById("myBtn");
-
 		// Get the <span> element that closes the modal
 		var span = document.getElementsByClassName("close")[0];
-
 		// When the user clicks the button, open the modal 
 		btn.onclick = function () {
 			modal.style.display = "block";
 		}
-
 		// When the user clicks on <span> (x), close the modal
 		span.onclick = function () {
 			modal.style.display = "none";
 		}
-
 		// When the user clicks anywhere outside of the modal, close it
 		window.onclick = function (event) {
 			if (event.target == modal) {

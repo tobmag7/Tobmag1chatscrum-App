@@ -4,7 +4,6 @@ import { Scrumuser } from './scrumuser';
 import { Userproject } from './userproject';
 import { Observable, of } from 'rxjs';
 import { Creategoal } from './creategoal';
-import { ScrumboardComponent } from './scrumboard/scrumboard.component';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +19,7 @@ export class ScrumdataService {
   _projectRoles = 'https://liveapi.chatscrum.com/scrum/api/scrumprojectroles/';
   _scrumProjectUrl = 'https://liveapi.chatscrum.com/scrum/api/scrumprojects/';
   updateRoleUrl = 'https://liveapi.chatscrum.com/scrum/api/scrumprojectroles/';
-  _sprintUrl = 'http://liveapi.chatscrum.com/scrum/api/scrumsprint/';
+  _sprintUrl = 'https://liveapi.chatscrum.com/scrum/api/scrumsprint/';
   token;
   encode;
   projectId: any;
@@ -48,22 +47,26 @@ export class ScrumdataService {
   createproject(user: Userproject) {
     return this._http.post<any>(this._url, { 'email': user['email'], 'projname': user['projname'], 'full_name': user['fullname'], 'usertype': 'Owner',}, this.httpOptions);
   }
-  
-  // createUserGoal(user: Creategoal) {
-  //   return this._http.get<any>(this._sprintUrl + user['project_id'], this.httpOptions);
-  // }
 
-  // createUserGoal(user: Creategoal) {
-  //   return this._http.post<any>(this._sprintUrl, { 'goal': user['goal'], 'user': user['user'], 'project_id': user['project_id']}, this.httpOptions);
-  // }
-
-  createUserGoal(user: Creategoal){
+  createSprint(data): Observable<any> {
     this.token = this.getUser().token;
     this.encode = JSON.parse(localStorage.getItem('Auth'));
-    this.projectId = this.getUser().project_id;
     this.encode = btoa(`${this.encode.email}:${this.encode.password}`);
-    return this._http.post<any>(this._sprintUrl, {'name':user['goal'], 'project_id':this.projectId}, {headers: new HttpHeaders()
-      .set('Authorization', `Basic ${this.encode}==`)})
+    console.log(data.project_id)
+    return this._http.post(this._sprintUrl + "?" + 'goal_project_id=' + data.project_id, { 'project_id': data.project_id }, {
+      headers: new HttpHeaders()
+        .set('Authorization', `Basic ${this.encode}==`).append('Content-Type', 'application/json')
+    })
+  }
+
+  addGoal(user): Observable<any> {
+    this.token = this.getUser().token;
+    this.encode = JSON.parse(localStorage.getItem('Auth'));
+    this.encode = btoa(`${this.encode.email}:${this.encode.password}`);
+    return this._http.post(this._goalUrl, { name: user.goalname, project_id: user.id, user: user.user }, {
+      headers: new HttpHeaders()
+        .set('Authorization', `Basic ${this.encode}==`)
+    })
   }
 
   // createUserGoal (user: Creategoal): Observable<any> {

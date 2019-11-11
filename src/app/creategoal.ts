@@ -7,8 +7,7 @@ export class Creategoal {
     // public project_id: string
     constructor(
         public name: string,
-        
-        
+        public user: number,
         
     ){ }
 }
