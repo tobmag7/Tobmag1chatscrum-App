@@ -11,7 +11,7 @@
 <body>
 <!--Navbar -->
 <nav class="mb-1 navbar navbar-expand-lg navbar-dark" style="background-color:darkblue ;">
-    <a class="navbar-brand" href="home">Tobmag1chatscrum</a>
+    <a class="navbar-brand" routerLink="home">Tobmag1chatscrum</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
         aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -19,13 +19,13 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="changerole">
+                <a class="nav-link" routerLink="changerole">
                     <i class="fas fa-user-plus"></i> Change User Role
                     <span class="sr-only">(current)</span>
                 </a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="/scrumboard/{{projectId}}">
+                <a class="nav-link" routerLink="/scrumboard/{{projectId}}">
                     <i class="fas fa-chalkboard"></i> Scrumboard Dashboard</a>
             </li>
             <li class="nav-item dropdown">
@@ -33,7 +33,7 @@
                     aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-user"></i> <strong> {{loggedUser.name}},</strong> {{loggedUser.role}} </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
-                    <a class="dropdown-item" href="logout">Click To Log out</a>
+                    <a class="dropdown-item" routerLink="logout">Click To Log out</a>
                 </div>
             </li>
         </ul>
